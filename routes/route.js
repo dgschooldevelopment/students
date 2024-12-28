@@ -1,43 +1,37 @@
 const express = require('express');
 const studentController = require('../controller/studentController');
-
 const courseController = require('../controller/courseController');
-const feesController =require('../controller/feesController');
+const feesController = require('../controller/feesController');
 const transactionController = require('../controller/transactionController');
 const formController = require('../controller/formController');
-const razorpayController=require('../controller/razorpayController')
-
-
-
+const razorpayController = require('../controller/razorpayController');
 
 const router = express.Router();
 
 // **Student Routes**
-router.post('/students', studentController.createStudent);  // Create a new student
-router.get('/students', studentController.getAllStudents);  
-router.get('/students/:studentid', studentController.getStudentById);  
+router.post('/students', studentController.createStudent); // Create a new student
+router.get('/students', studentController.getAllStudents); // Get all students
+router.get('/students/:studentid', studentController.getStudentById); // Get student by ID
 
+// **Course Routes**
+router.post('/course', courseController.postcourseinfo); // Create a new course
+router.get('/course', courseController.getcourseinfo); // Get all courses
 
+// **Fee Routes**
+router.get('/fee/:studentid', feesController.calculatePaidFees); // Calculate paid fees for a student
+router.get('/fee', feesController.getAllFeeDetails); // Get all fee details
 
-// course details
-router.post('/course', courseController.postcourseinfo);   // Create course
-router.get('/course', courseController.getcourseinfo);   // Get all courses
+// **Transaction Routes**
+router.get('/transaction', transactionController.getAllTransactions); // Get all transactions
+router.post('/transaction', transactionController.createTransaction); // Create a new transaction
+router.get('/transaction/:studentid', transactionController.getStudentById); // Get transactions by student ID
 
-
-// **Fee details**
-// router.post('/fee', feesController.addPaymentTransaction);  // Create fee detail
-router.get('/fee/:studentid',feesController.calculatePaidFees)
-router.get('/fee', feesController.getAllFeeDetails);  // Get all fee details
-
-router.get('/transaction',transactionController.getAllTransactions);
-router.post('/transaction',transactionController.createTransaction);
-router.get('/transaction/:studentid', transactionController.getStudentById);  
-
-
+// **Razorpay Routes**
+// Uncomment these lines if Razorpay integration is active
 // router.post('/pay', razorpayController.pay);
-// router.post('/payverify',razorpayController.payverify);
+// router.post('/payverify', razorpayController.payverify);
 
-
-router.get('/details',formController.getStudentDetails);
+// **Form Routes**
+router.get('/details', formController.getStudentDetails); // Get student and course details
 
 module.exports = router;
