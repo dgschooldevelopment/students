@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Fee Payment</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Modal styles */
+        #payModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .transaction-history {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .transaction-history th, .transaction-history td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .transaction-history th {
+            background-color: #f2f2f2;
+        }
+
+        #successPopup {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .amountbox {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #qrCode {
+            margin-top: 20px;
+        }
+
+        /* Style for fee information boxes */
+        .box {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Student Info -->
+    <div id="studentInfo">
+        <div class="box" id="box1">Name: </div>
+        <div class="box" id="box2">College: </div>
+        <div class="box" id="mob1">Mobile No: </div>
+        <div class="box" id="mob2">Parent Mobile No: </div>
+        <div class="box" id="mob3">Student ID: </div>
+    </div>
+
+    <!-- Fee Info -->
+    <div id="feeInfo">
+        <div class="box" id="fee1">Total Fee: </div>
+        <div class="box" id="fee2">Paid Amount: </div>
+        <div class="box" id="fee3">Remaining Amount: </div>
+        <div class="box" id="box3">Course: </div>
+        <div class="box" id="install1">Next Installment: </div>
+        <div class="box" id="date">Payment Date: </div>
+    </div>
+
+    <!-- Pay Button -->
+    <div id="payButton">
+        <button>Pay Now</button>
+    </div>
+
+    <!-- Modal for Payment -->
+    <div id="payModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Next Installment</h3>
+            <div class="amountbox">Amount: </div>
+            <div>
+                <label for="paymentMode">Payment Mode:</label>
+                <select id="paymentMode">
+                    <option value="UPI">UPI</option>
+                    <option value="Net Banking">Net Banking</option>
+                    <option value="Cash">Cash</option>
+                </select>
+            </div>
+            <div>
+                <label for="transactionIdInput">Transaction ID:</label>
+                <input type="text" id="transactionIdInput">
+            </div>
+            <button id="submitTransaction">Submit Transaction</button>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup">
+        Transaction submitted successfully!
+        <button id="closeSuccessPopup">Close</button>
+    </div>
+
+    <!-- Transaction History Table -->
+    <h2>Transaction History</h2>
+    <table class="transaction-history">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment Mode</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- QR Code for Payment -->
+    <div id="qrCode"></div>
+
+    <script src="nik.js"></script> <!-- Link your script.js file here -->
+</body>
+</html>

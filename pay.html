@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Include Razorpay Checkout script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<button id="pay-button">Pay ₹50</button>
+
+<script>
+    document.getElementById('pay-button').onclick = function () {
+        // Make a request to your backend to create an order
+        fetch('/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            const options = {
+                key: 'rzp_test_xxxxxx',   // Test Key ID
+                amount: data.amount,      // Amount in paise (₹500)
+                currency: data.currency,
+                name: 'Test Company',
+                description: 'Payment for Order',
+                image: 'https://example.com/logo.png',
+                order_id: data.id,        // Order ID returned from the backend
+                handler: function (response) {
+                    alert('Payment successful: ' + response.razorpay_payment_id);
+                },
+                prefill: {
+                    name: 'John Doe',
+                    email: 'john@example.com',
+                    contact: '9999999999'
+                },
+                theme: {
+                    color: '#F37254'
+                }
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.open();  // Open the Razorpay payment modal
+        })
+        .catch(error => console.error('Error creating order:', error));
+    };
+</script>
+
+</body>
+</html>
