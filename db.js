@@ -15,13 +15,13 @@ const pool = mysql.createPool({
 
 
 // Connect to the database
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        process.exit(1); // Exit the process if connection fails
-    }
-    console.log('Connected to the database.');
-});
+// db.connect((err) => {
+//     if (err) {
+//         console.error('Error connecting to the database:', err);
+//         process.exit(1); // Exit the process if connection fails
+//     }
+//     console.log('Connected to the database.');
+// });
 
 
 module.exports = pool.promise();
