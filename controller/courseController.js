@@ -5,7 +5,6 @@ exports.postcourseinfo = (req, res) => {
     const { course_name, courseid, joining_date, duration, batch_timing, mode_of_learning, fee_details, course_end_date } = req.body;
 
     console.log('Received data:', req.body);
-
     const query = `
         INSERT INTO course_details (course_name, courseid, joining_date, duration, batch_timing, mode_of_learning, fee_details, course_end_date)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?);
