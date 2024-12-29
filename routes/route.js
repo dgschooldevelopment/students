@@ -10,19 +10,19 @@ const router = express.Router();
 
 // **Student Routes**
 router.post('/students', studentController.createStudent); // Create a new student
-router.get('/students', studentController.getAllStudents); // Get all students
+router.get('/allstudents', studentController.getAllStudents); // Get all students
 router.get('/students/:studentid', studentController.getStudentById); // Get student by ID
 
 // **Course Routes**
 router.post('/course', courseController.postcourseinfo); // Create a new course
-router.get('/course', courseController.getcourseinfo); // Get all courses
+router.get('/allcourse', courseController.getcourseinfo); // Get all courses
 
 // **Fee Routes**
 router.get('/fee/:studentid', feesController.calculatePaidFees); // Calculate paid fees for a student
 router.get('/fee', feesController.getAllFeeDetails); // Get all fee details
 
 // **Transaction Routes**
-router.get('/transaction', transactionController.getAllTransactions); // Get all transactions
+router.get('/alltransaction', transactionController.getAllTransactions); // Get all transactions
 router.post('/transaction', transactionController.createTransaction); // Create a new transaction
 router.get('/transaction/:studentid', transactionController.getTransactionsByStudentId); // Get transactions by student ID
 
