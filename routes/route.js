@@ -24,7 +24,7 @@ router.get('/fee', feesController.getAllFeeDetails); // Get all fee details
 // **Transaction Routes**
 router.get('/transaction', transactionController.getAllTransactions); // Get all transactions
 router.post('/transaction', transactionController.createTransaction); // Create a new transaction
-router.get('/transaction/:studentid', transactionController.getStudentById); // Get transactions by student ID
+router.get('/transaction/:studentid', transactionController.getTransactionsByStudentId); // Get transactions by student ID
 
 // **Razorpay Routes**
 // Uncomment these lines if Razorpay integration is active
